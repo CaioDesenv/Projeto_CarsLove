@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <title>Projeto Amantes de Carro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"> 
+    <style>
+        body {
+            background: linear-gradient(to right, #e6f7ff, #cceeff); /* Gradiente de cores suaves */
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #007bff; /* Azul brilhante */
+        }
+
+        b {
+            display: block;
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #28a745; /* Cor verde para o nome do carro */
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        form input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form input[type="submit"] {
+            background-color: #007bff; /* Cor azul para o botão de envio */
+            color: white;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #0056b3; /* Cor azul mais escura ao passar o mouse */
+        }
+
+        hr {
+            margin: 20px 0;
+            border: 0;
+            border-top: 2px solid #007bff; /* Linha horizontal azul */
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        .btn-voltar {
+            margin-top: 20px;
+        }
+    </style>
+
+    <script>
+        // Função JavaScript para alerta interativo
+        function exibirAlerta() {
+            alert('Bem-vindo à Exibição de Dados do Carro!');
+        }
+    </script>
+</head>
+<body>
+    <h1>Exibindo dados do Carro</h1>
+    <b th:text="${carro.nome}" onclick="exibirAlerta()"></b>
+    
+    <form th:action="@{gravar-comentario}" th:object="${comentario}" method="post" onsubmit="exibirAlerta()">
+        <p>Escreva seu relato sobre este carro <input type="text" th:field="${comentario.descricao}" required></p>
+        <input type="hidden" th:field="${carro.id}">
+        <p><input type="submit" value="Enviar comentário"></p>
+    </form>
+    
+    <hr>
+    <h1>Comentários</h1> 
+    <ul>
+        <li th:each="reg : ${comentarios}">
+            <p th:text="${reg.descricao}" onclick="exibirAlerta()"></p>
+        </li>
+    </ul>            
+    
+    <a th:href="@{/inicio}" class="btn btn-dark btn-voltar" onclick="exibirAlerta()">Voltar</a>
+</body>
+</html>
